@@ -1,27 +1,47 @@
 ### Installer
-- React = npx create-react-app ชื่อโปรเจกต์
-- React Router = npm install react-router-dom
-- Axios = npm i axios
-- MUI = npm install @mui/material @emotion/react @emotion/styled
-- MUI Icons = npm install @mui/icons-material
-- Loader = npm install react-loader-spinner
-- UUID = npm i uuid
+- React = 
+    npx create-react-app ชื่อโปรเจกต์
+- React 
+    Router = npm install react-router-dom
+- Axios = 
+    npm i axios
+- MUI = 
+    npm install @mui/material @emotion/react @emotion/styled
+- MUI Icons = 
+    npm install @mui/icons-material
+- Loader = 
+    npm install react-loader-spinner
+- UUID = 
+    npm i uuid
 
 ### Import
-- Create Context = import { createContext } from "react";
-- Hook Api = import { useEffect, useState, useReducer, useContext } from "react";
-- React Router = import { BrowserRouter as Router, Link, Route, Routes} from "react-router-dom"
-- Prop Type = import PropTypes from 'prop-types';
-- MUI = import Button from '@mui/material/Button';
-- Loader = import { Vortex } from 'react-loader-spinner'
-- Axios = import axios from 'axios'
+- Create Context = 
+    import { createContext } from "react";
+- Hook Api = 
+    import { useEffect, useState, useReducer, useContext } from "react";
+- React Router = 
+    import { BrowserRouter as Router, Link, Route, Routes} from "react-router-dom"
+- Prop Type = 
+    import PropTypes from 'prop-types';
+- MUI = 
+    import Button from '@mui/material/Button';
+- Loader = 
+    import { Vortex } from 'react-loader-spinner'
+- Axios = 
+    import axios from 'axios'
 
 ### Input Pattern
-- Email = /^[^\s@]+@[^\s@]+\.[^\s@]{2,6}$/;
-- Password = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
-- x,xxx,xxx = /(\d)(?=(\d{3})+(?!\d))/g, '$1,'
+- Email = 
+    /^[^\s@]+@[^\s@]+\.[^\s@]{2,6}$/;
+- Password = 
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
+- x,xxx,xxx = 
+    /(\d)(?=(\d{3})+(?!\d))/g, '$1,'
 
 ### Form Pattern
-- Validation, Loader = https://github.com/kanisornteen/Practice-Axios-React/blob/main/axios/src/components/Validation.jsx
-- Axios Get Post Put Patch, Loader = https://github.com/kanisornteen/Practice-Axios-React/blob/main/axios/src/components/ContentText.jsx
-- Router = https://github.com/kanisornteen/Practice-Axios-React/blob/main/axios/src/App.jsx
+- Validation, Loader = 
+    https://github.com/kanisornteen/Practice-Axios-React/blob/main/axios/src/components/Validation.jsx
+- Axios Get Post Put Patch, Loader = 
+    https://github.com/kanisornteen/Practice-Axios-React/blob/main/axios/src/components/ContentText.jsx
+- Router = 
+    https://github.com/kanisornteen/Practice-Axios-React/blob/main/axios/src/App.jsx
