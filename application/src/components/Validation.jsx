@@ -10,7 +10,6 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import axios from 'axios'
-// import TableData from './TableData';
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Tooltip } from '@mui/material'; //Tooltip
 import EditIcon from '@mui/icons-material/Edit';
@@ -73,7 +72,7 @@ const Validation = ()=> {
             console.log("Submittttttttttttt");
             // นำข้อมูลที่ต้องการนำไปใส่ มาใส่ที่นี่ axios. post************************************
 
-            newData[0].id = "10"
+            newData[0].id = "7"
             newData[0].firstname = fname
             newData[0].lastname = lname
             newData[0].gender = gender
@@ -152,6 +151,16 @@ const Validation = ()=> {
             score: ''
         })
     }
+
+    const getGenderTooltip = (gender) => {
+        if (gender === 'F') {
+            return "Female"
+        } else if (gender === 'M') {
+            return "Male"
+        } else {
+            return "Unknow"
+        }
+    };
 
     return (
         <div className='container-form'>
@@ -255,6 +264,7 @@ const Validation = ()=> {
                         </TableHead>
                         <TableBody>
                             {dataTable.map(element => {
+                                const genderHover = getGenderTooltip(element.gender)
                                 return (
                                     <TableRow sx={{ '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' } }}>
                                         <TableCell>{element.id}</TableCell>
@@ -265,7 +275,9 @@ const Validation = ()=> {
                                         </TableCell>
                                         <TableCell id='fname'>{element.firstname}</TableCell>
                                         <TableCell id='lname'>{element.lastname}</TableCell>
-                                        <TableCell id='gener'>{element.gender}</TableCell>
+                                        <Tooltip title={genderHover} arrow>
+                                            <TableCell id='gener'>{element.gender}</TableCell>
+                                        </Tooltip>
                                         <TableCell id='score'>{element.score.toFixed(2)}</TableCell>
                                         {/* <TableCell>
                                         <Tooltip title="" arrow>
