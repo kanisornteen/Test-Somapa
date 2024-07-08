@@ -23,6 +23,13 @@ const Validation = ()=> {
         gender: '',
         score: ''
     })
+    const [newInputData, setNewInputData] = useState({
+        id: '',
+        fname: '',
+        lname: '',
+        gender: '',
+        score: ''
+    })
     const [errorData, setErrorData] = useState({})
     const [dataTable, setDataTable] = useState([])
     const [editBtn, setEditBtn] = useState(false)
@@ -66,39 +73,25 @@ const Validation = ()=> {
             console.log("Submittttttttttttt");
             // นำข้อมูลที่ต้องการนำไปใส่ มาใส่ที่นี่ axios. post************************************
 
-            newData[0].id = "100"
+            newData[0].id = "10"
             newData[0].firstname = fname
             newData[0].lastname = lname
             newData[0].gender = gender
             newData[0].score = parseFloat(score)
 
             setDataTable(dataTable.concat(newData))
-            // setNewDatas(...newData,...newDatas)
-            // console.log(newDatas);
-            
-            // const handlePost = async ()=> {
-            //     try {
-            //         const response = await axios.post('sample-data.json', {
-            //             fname: '55',
-            //             lname: '66',
-            //             gender: '44',
-            //             score: '11'
-            //         })
-            //         setDataTable(response.data)
-            //         console.log(response.data);
-            //     } catch (error) {
-
-            //     } finally {
-
-            //     }
-            // }
-            // handlePost();
         }
 
         if (editBtn) {
             // นำข้อมูลที่ต้องการนำไปใส่ มาใส่ที่นี่ axios. put************************************
-            setNameBtn("Add")
-            setEditBtn(false)
+            const updatedDataTable = dataTable.map(item =>
+                item.id === newInputData.id
+                    ? { ...item, firstname: fname, lastname: lname, gender: gender, score: parseFloat(score) }
+                    : item
+            );
+            setDataTable(updatedDataTable);
+            setEditBtn(false);
+            setNameBtn("Add");
         }
 
         // setErrorData(error)
@@ -127,9 +120,16 @@ const Validation = ()=> {
           fname: rowData.firstname,
           lname: rowData.lastname,
           gender: rowData.gender,
-          score: rowData.score.toString() // แปลง score เป็น string เพื่อให้มันถูกแสดงใน input type number
+          score: rowData.score // แปลง score เป็น string เพื่อให้มันถูกแสดงใน input type number
         });
-        // console.log(rowData.gender);
+        setNewInputData({
+          id: rowData.id,
+          fname: rowData.firstname,
+          lname: rowData.lastname,
+          gender: rowData.gender,
+          score: rowData.score // แปลง score เป็น string เพื่อให้มันถูกแสดงใน input type number
+        });
+        // console.log(inputData);
       };
 
     //   const Editdfunc = (event)=> {
@@ -188,9 +188,9 @@ const Validation = ()=> {
                             label="Gender"
                         >
                             <MenuItem value="">None</MenuItem>
-                            <MenuItem value="Male">Male</MenuItem>
-                            <MenuItem value="Female">Female</MenuItem>
-                            <MenuItem value="Unknown">Unknown</MenuItem>
+                            <MenuItem value="M">Male</MenuItem>
+                            <MenuItem value="F">Female</MenuItem>
+                            <MenuItem value="U">Unknown</MenuItem>
                         </Select>
                         <FormHelperText>{errorData.gender && errorData.gender}</FormHelperText>
                         {/* <div style={{ marginTop: '8px', color: gender ? 'inherit' : 'red' }}>
