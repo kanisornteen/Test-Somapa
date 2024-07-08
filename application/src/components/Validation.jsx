@@ -12,7 +12,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import axios from 'axios'
 // import TableData from './TableData';
 import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material'; //Tooltip
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Tooltip } from '@mui/material'; //Tooltip
 import EditIcon from '@mui/icons-material/Edit';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -23,7 +23,7 @@ const Validation = ()=> {
         gender: '',
         score: ''
     })
-    const [newInputData, setNewInputData] = useState({
+    const [EditInputData, setEditInputData] = useState({
         id: '',
         fname: '',
         lname: '',
@@ -85,7 +85,7 @@ const Validation = ()=> {
         if (editBtn) {
             // นำข้อมูลที่ต้องการนำไปใส่ มาใส่ที่นี่ axios. put************************************
             const updatedDataTable = dataTable.map(item =>
-                item.id === newInputData.id
+                item.id === EditInputData.id
                     ? { ...item, firstname: fname, lastname: lname, gender: gender, score: parseFloat(score) }
                     : item
             );
@@ -122,7 +122,7 @@ const Validation = ()=> {
           gender: rowData.gender,
           score: rowData.score // แปลง score เป็น string เพื่อให้มันถูกแสดงใน input type number
         });
-        setNewInputData({
+        setEditInputData({
           id: rowData.id,
           fname: rowData.firstname,
           lname: rowData.lastname,
@@ -137,6 +137,21 @@ const Validation = ()=> {
     //     // exios .put ************************************************
     //     console.log("Editttttttttttt");
     //   }
+
+    const clearInput = ()=> {
+        setInputData({
+            fname: '',
+            lname: '',
+            gender: '',
+            score: ''})
+        setEditInputData({
+            id: '',
+            fname: '',
+            lname: '',
+            gender: '',
+            score: ''
+        })
+    }
 
     return (
         <div className='container-form'>
@@ -219,7 +234,7 @@ const Validation = ()=> {
                     </Button>
                     </Grid>
                     <Grid item>
-                    <Button variant="contained" sx={{backgroundColor: 'white', width: '40%', color: 'black'}} type='button'>
+                    <Button onClick={clearInput} variant="contained" sx={{backgroundColor: 'white', width: '40%', color: 'black'}} type='button'>
                         Cancel
                     </Button>
                     </Grid>
