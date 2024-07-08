@@ -1,6 +1,6 @@
 import './App.css';
 import Validation from './components/Validation';
-import TableData from './components/TableData';
+// import TableData from './components/TableData';
 
 function App() {
   return (

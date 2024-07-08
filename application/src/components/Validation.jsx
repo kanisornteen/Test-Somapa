@@ -10,9 +10,9 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import axios from 'axios'
-import TableData from './TableData';
+// import TableData from './TableData';
 import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Tooltip, IconButton } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material'; //Tooltip
 import EditIcon from '@mui/icons-material/Edit';
 
 const Validation = ()=> {
@@ -192,7 +192,7 @@ const Validation = ()=> {
                                         <TableCell>{element.firstname}</TableCell>
                                         <TableCell>{element.lastname}</TableCell>
                                         <TableCell>{element.gender}</TableCell>
-                                        <TableCell>{element.score}</TableCell>
+                                        <TableCell>{element.score.toFixed(2)}</TableCell>
                                         {/* <TableCell>
                                         <Tooltip title="" arrow>
                                             <span></span>
