@@ -9,6 +9,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
+import axios from 'axios'
 
 const Validation = ()=> {
     const [inputData, setInputData] = useState({
@@ -18,9 +19,11 @@ const Validation = ()=> {
         score: ''
     })
     const [errorData, setErrorData] = useState({})
+    const [dataTable, setDataTable] = useState([])
 
     const getInput = (event)=> {
         setInputData({...inputData, [event.target.name]: event.target.value})
+        console.log(inputData);
     }
 
     const handleSubmit = (event)=> {
@@ -49,14 +52,25 @@ const Validation = ()=> {
         } else if(score > 100) {
             error.score = "Maximum is 100"
         }
+
+        // ถ้า validate ผ่านแล้ว------------------------------------------------
+        if (Object.keys(error).length === 0 && error.constructor === Object) {
+            // นำข้อมูลที่ต้องการนำไปใส่ มาใส่ที่นี่
+            const handleGet = async ()=> {
+                try {
+                    const response = await axios.get('sample-data.json')
+                    setDataTable(response.data)
+                    console.log(response.data);
+                } catch (error) {
+                    
+                } finally {
+                    
+                }
+            }
+            handleGet();
+        }
         setErrorData(error)
     }
-
-    const [gender, setGender] = useState('');
-    const handleGenderChange = (event) => {
-        setGender(event.target.value);
-        getInput(event); // assuming getInput handles the event correctly
-      };
 
     return (
         <div className='container-form'>
@@ -101,8 +115,8 @@ const Validation = ()=> {
                     labelId="gender-label"
                     id="gender"
                     name="gender"
-                    value={gender}
-                    onChange={handleGenderChange}
+                    value={inputData.gender}
+                    onChange={getInput}
                     label="Gender"
                 >
                     <MenuItem value=""><em>None</em></MenuItem>
