@@ -167,9 +167,9 @@ const Validation = ()=> {
                 </Grid>
                 </Grid>
             </Box>
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                            <TableHead>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
                             <TableRow>
                                 <TableCell>No.</TableCell>
                                 <TableCell></TableCell>
@@ -178,32 +178,35 @@ const Validation = ()=> {
                                 <TableCell>Gender</TableCell>
                                 <TableCell>Score</TableCell>
                             </TableRow>
-                            </TableHead>
-                            <TableBody>
+                        </TableHead>
+                        <TableBody>
                             {dataTable.map(element => {
                                 return (
-                            <TableRow sx={{ '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' } }}>
-                                <TableCell>{element.id}</TableCell>
-                                <TableCell>
-                                <IconButton>
-                                    <EditIcon />
-                                </IconButton>
-                                </TableCell>
-                                <TableCell>{element.firstname}</TableCell>
-                                <TableCell>{element.lastname}</TableCell>
-                                <TableCell>{element.gender}</TableCell>
-                                <TableCell>{element.score}</TableCell>
-                                <TableCell>
-                                <Tooltip title="" arrow>
-                                    <span></span>
-                                </Tooltip>
-                                </TableCell>
-                                <TableCell></TableCell>
-                            </TableRow>
-                                )})}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                    <TableRow sx={{ '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' } }}>
+                                        <TableCell>{element.id}</TableCell>
+                                        <TableCell>
+                                            <IconButton>
+                                                <EditIcon />
+                                            </IconButton>
+                                        </TableCell>
+                                        <TableCell>{element.firstname}</TableCell>
+                                        <TableCell>{element.lastname}</TableCell>
+                                        <TableCell>{element.gender}</TableCell>
+                                        <TableCell>{element.score}</TableCell>
+                                        {/* <TableCell>
+                                        <Tooltip title="" arrow>
+                                            <span></span>
+                                        </Tooltip>
+                                        </TableCell>
+                                        <TableCell></TableCell> */}
+                                    </TableRow>
+                                        )
+                                    }
+                                )
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
         </div>
     );
 }
