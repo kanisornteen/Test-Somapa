@@ -14,6 +14,7 @@ import axios from 'axios'
 import React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material'; //Tooltip
 import EditIcon from '@mui/icons-material/Edit';
+import { v4 as uuidv4 } from 'uuid';
 
 const Validation = ()=> {
     const [inputData, setInputData] = useState({
@@ -82,6 +83,16 @@ const Validation = ()=> {
         setErrorData(error)
     }
 
+    const handleEdit = (rowData) => {
+        setInputData({
+          fname: rowData.firstname,
+          lname: rowData.lastname,
+          gender: rowData.gender,
+          score: rowData.score.toString() // แปลง score เป็น string เพื่อให้มันถูกแสดงใน input type number
+        });
+        console.log(inputData);
+      };
+
     return (
         <div className='container-form'>
             <Box
@@ -100,6 +111,7 @@ const Validation = ()=> {
                     label="First name"
                     name="fname"
                     variant="outlined"
+                    value={inputData.fname}
                     helperText={errorData.fname && errorData.fname}
                     onChange={getInput}
                     fullWidth
@@ -112,6 +124,7 @@ const Validation = ()=> {
                     label="Last name"
                     name="lname"
                     variant="outlined"
+                    value={inputData.lname}
                     helperText={errorData.lname && errorData.lname}
                     onChange={getInput}
                     fullWidth
@@ -146,6 +159,7 @@ const Validation = ()=> {
                     label="Score"
                     name="score"
                     variant="outlined"
+                    value={inputData.score}
                     helperText={errorData.score && errorData.score}
                     onChange={getInput}
                     fullWidth
@@ -186,13 +200,13 @@ const Validation = ()=> {
                                         <TableCell>{element.id}</TableCell>
                                         <TableCell>
                                             <IconButton>
-                                                <EditIcon />
+                                                <EditIcon onClick={()=>handleEdit(element)} />
                                             </IconButton>
                                         </TableCell>
-                                        <TableCell>{element.firstname}</TableCell>
-                                        <TableCell>{element.lastname}</TableCell>
-                                        <TableCell>{element.gender}</TableCell>
-                                        <TableCell>{element.score.toFixed(2)}</TableCell>
+                                        <TableCell id='fname'>{element.firstname}</TableCell>
+                                        <TableCell id='lname'>{element.lastname}</TableCell>
+                                        <TableCell id='gener'>{element.gender}</TableCell>
+                                        <TableCell id='score'>{element.score.toFixed(2)}</TableCell>
                                         {/* <TableCell>
                                         <Tooltip title="" arrow>
                                             <span></span>
