@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Validation.css'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -25,18 +25,19 @@ const Validation = ()=> {
     })
     const [errorData, setErrorData] = useState({})
     const [dataTable, setDataTable] = useState([])
+    const [editBtn, setEditBtn] = useState(false)
+    const [nameBtn, setNameBtn] = useState("Add")
+    // const [newDatas, setNewDatas] = useState({})
 
     const getInput = (event)=> {
         setInputData({...inputData, [event.target.name]: event.target.value})
-        // console.log(inputData);
     }
 
     const handleSubmit = (event)=> {
         event.preventDefault();
         const {fname, lname, gender, score} = inputData
-        // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,6}$/;
-        // const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
         const error = {}
+        const newData = [{}]
         
         if(fname === ''){
             error.fname = "First name is Required"
@@ -58,40 +59,84 @@ const Validation = ()=> {
             error.score = "Maximum is 100"
         }
 
-        // ถ้า validate ผ่านแล้ว------------------------------------------------
-        if (Object.keys(error).length === 0 && error.constructor === Object) {
-            // นำข้อมูลที่ต้องการนำไปใส่ มาใส่ที่นี่
-            const handleGet = async ()=> {
-                try {
-                    const response = await axios.get('sample-data.json')
-                    const data = response.data;
-                    setDataTable(data)
-                    
-                    await dataTable.map(element => {
-                        return console.log(`forEach = ${element.firstname}`)        // วนลูปสมาชิกทุกตัวภายใน array
-                    })
-                    // console.log(dataTable[0].firstname);
-                    // TableData(data)
-                } catch (error) {
-                    
-                } finally {
-                    
-                }
-            }
-            handleGet();
-        }
         setErrorData(error)
+
+        // ถ้า validate ผ่านแล้ว------------------------------------------------
+        if (Object.keys(error).length === 0 && error.constructor === Object && !editBtn) {
+            console.log("Submittttttttttttt");
+            // นำข้อมูลที่ต้องการนำไปใส่ มาใส่ที่นี่ axios. post************************************
+
+            newData[0].id = "100"
+            newData[0].firstname = fname
+            newData[0].lastname = lname
+            newData[0].gender = gender
+            newData[0].score = parseFloat(score)
+
+            setDataTable(dataTable.concat(newData))
+            // setNewDatas(...newData,...newDatas)
+            // console.log(newDatas);
+            
+            // const handlePost = async ()=> {
+            //     try {
+            //         const response = await axios.post('sample-data.json', {
+            //             fname: '55',
+            //             lname: '66',
+            //             gender: '44',
+            //             score: '11'
+            //         })
+            //         setDataTable(response.data)
+            //         console.log(response.data);
+            //     } catch (error) {
+
+            //     } finally {
+
+            //     }
+            // }
+            // handlePost();
+        }
+
+        if (editBtn) {
+            // นำข้อมูลที่ต้องการนำไปใส่ มาใส่ที่นี่ axios. put************************************
+            setNameBtn("Add")
+            setEditBtn(false)
+        }
+
+        // setErrorData(error)
     }
 
+    useEffect(()=>{
+        const handleGet = async ()=> {
+            try {
+                const response = await axios.get('sample-data.json')
+                const data = response.data;
+                setDataTable(data)
+            } catch (error) {
+                
+            } finally {
+                
+            }
+        }
+        handleGet();
+    }, [inputData])
+
+    // เมื่อกดแก้ไข ------------------------------------
     const handleEdit = (rowData) => {
+        setNameBtn("Edit")
+        setEditBtn(true)
         setInputData({
           fname: rowData.firstname,
           lname: rowData.lastname,
           gender: rowData.gender,
           score: rowData.score.toString() // แปลง score เป็น string เพื่อให้มันถูกแสดงใน input type number
         });
-        console.log(inputData);
+        // console.log(rowData.gender);
       };
+
+    //   const Editdfunc = (event)=> {
+    //     event.preventDefault();
+    //     // exios .put ************************************************
+    //     console.log("Editttttttttttt");
+    //   }
 
     return (
         <div className='container-form'>
@@ -102,7 +147,7 @@ const Validation = ()=> {
                 }}
                 noValidate
                 autoComplete="off"
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit} //**************************************** */
             >
                 <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -142,7 +187,7 @@ const Validation = ()=> {
                             onChange={getInput}
                             label="Gender"
                         >
-                            <MenuItem value=""><em>None</em></MenuItem>
+                            <MenuItem value="">None</MenuItem>
                             <MenuItem value="Male">Male</MenuItem>
                             <MenuItem value="Female">Female</MenuItem>
                             <MenuItem value="Unknown">Unknown</MenuItem>
@@ -170,7 +215,7 @@ const Validation = ()=> {
                 <Grid item xs={12} container justifyContent="center" spacing={2}>
                     <Grid item>
                     <Button variant="contained" color='primary' type='submit' sx={{ width: '40%' }}>
-                        Add
+                        {nameBtn}
                     </Button>
                     </Grid>
                     <Grid item>
