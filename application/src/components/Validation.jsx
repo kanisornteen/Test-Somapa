@@ -10,6 +10,10 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import axios from 'axios'
+import TableData from './TableData';
+import React from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Tooltip, IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Validation = ()=> {
     const [inputData, setInputData] = useState({
@@ -23,7 +27,7 @@ const Validation = ()=> {
 
     const getInput = (event)=> {
         setInputData({...inputData, [event.target.name]: event.target.value})
-        console.log(inputData);
+        // console.log(inputData);
     }
 
     const handleSubmit = (event)=> {
@@ -59,8 +63,14 @@ const Validation = ()=> {
             const handleGet = async ()=> {
                 try {
                     const response = await axios.get('sample-data.json')
-                    setDataTable(response.data)
-                    console.log(response.data);
+                    const data = response.data;
+                    setDataTable(data)
+                    
+                    await dataTable.map(element => {
+                        return console.log(`forEach = ${element.firstname}`)        // วนลูปสมาชิกทุกตัวภายใน array
+                    })
+                    // console.log(dataTable[0].firstname);
+                    // TableData(data)
                 } catch (error) {
                     
                 } finally {
@@ -74,90 +84,127 @@ const Validation = ()=> {
 
     return (
         <div className='container-form'>
-      <Box
-        component="form"
-        sx={{
-          '& > :not(style)': { m: 1, width: '100%' },
-        }}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              type='text'
-              label="First name"
-              name="fname"
-              variant="outlined"
-              helperText={errorData.fname && errorData.fname}
-              onChange={getInput}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              type='text'
-              label="Last name"
-              name="lname"
-              variant="outlined"
-              helperText={errorData.lname && errorData.lname}
-              onChange={getInput}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-                <InputLabel id="gender-label">Gender</InputLabel>
-                <Select
-                    labelId="gender-label"
-                    id="gender"
-                    name="gender"
-                    value={inputData.gender}
+            <Box
+                component="form"
+                sx={{
+                '& > :not(style)': { m: 1, width: '100%' },
+                }}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+            >
+                <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                    type='text'
+                    label="First name"
+                    name="fname"
+                    variant="outlined"
+                    helperText={errorData.fname && errorData.fname}
                     onChange={getInput}
-                    label="Gender"
-                >
-                    <MenuItem value=""><em>None</em></MenuItem>
-                    <MenuItem value="Male">Male</MenuItem>
-                    <MenuItem value="Female">Female</MenuItem>
-                    <MenuItem value="Unknown">Unknown</MenuItem>
-                </Select>
-                <FormHelperText>{errorData.gender && errorData.gender}</FormHelperText>
-                {/* <div style={{ marginTop: '8px', color: gender ? 'inherit' : 'red' }}>
-                    {gender ? "" : 'Please select a gender'}
-                </div> */}
-                </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              type='number'
-              label="Score"
-              name="score"
-              variant="outlined"
-              helperText={errorData.score && errorData.score}
-              onChange={getInput}
-              fullWidth
-              inputProps={{ min: '0', max: '100' }}
-              required
-            />
-          </Grid>
-          <Grid item xs={12} container justifyContent="center" spacing={2}>
-            <Grid item>
-              <Button variant="contained" color='primary' type='submit' sx={{ width: '40%' }}>
-                Add
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button variant="contained" sx={{backgroundColor: 'white', width: '40%', color: 'black'}} type='button'>
-                Cancel
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Box>
-    </div>
+                    fullWidth
+                    required
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                    type='text'
+                    label="Last name"
+                    name="lname"
+                    variant="outlined"
+                    helperText={errorData.lname && errorData.lname}
+                    onChange={getInput}
+                    fullWidth
+                    required
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormControl fullWidth>
+                        <InputLabel id="gender-label">Gender</InputLabel>
+                        <Select
+                            labelId="gender-label"
+                            id="gender"
+                            name="gender"
+                            value={inputData.gender}
+                            onChange={getInput}
+                            label="Gender"
+                        >
+                            <MenuItem value=""><em>None</em></MenuItem>
+                            <MenuItem value="Male">Male</MenuItem>
+                            <MenuItem value="Female">Female</MenuItem>
+                            <MenuItem value="Unknown">Unknown</MenuItem>
+                        </Select>
+                        <FormHelperText>{errorData.gender && errorData.gender}</FormHelperText>
+                        {/* <div style={{ marginTop: '8px', color: gender ? 'inherit' : 'red' }}>
+                            {gender ? "" : 'Please select a gender'}
+                        </div> */}
+                        </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                    type='number'
+                    label="Score"
+                    name="score"
+                    variant="outlined"
+                    helperText={errorData.score && errorData.score}
+                    onChange={getInput}
+                    fullWidth
+                    inputProps={{ min: '0', max: '100' }}
+                    required
+                    />
+                </Grid>
+                <Grid item xs={12} container justifyContent="center" spacing={2}>
+                    <Grid item>
+                    <Button variant="contained" color='primary' type='submit' sx={{ width: '40%' }}>
+                        Add
+                    </Button>
+                    </Grid>
+                    <Grid item>
+                    <Button variant="contained" sx={{backgroundColor: 'white', width: '40%', color: 'black'}} type='button'>
+                        Cancel
+                    </Button>
+                    </Grid>
+                </Grid>
+                </Grid>
+            </Box>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>No.</TableCell>
+                        <TableCell>First name</TableCell>
+                        <TableCell>Last name</TableCell>
+                        <TableCell>Gender</TableCell>
+                        <TableCell>Score</TableCell>
+                    </TableRow>
+                </TableHead>
+                {dataTable.map(element => {
+                    return (
+                        <TableContainer component={Paper}>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableBody>
+                                    <TableRow sx={{ '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' } }}>
+                                        <TableCell>
+                                        <IconButton>
+                                            <EditIcon />
+                                        </IconButton>
+                                        </TableCell>
+                                        <TableCell>{element.id}</TableCell>
+                                        <TableCell>{element.firstname}</TableCell>
+                                        <TableCell>{element.lastname}</TableCell>
+                                        <TableCell>{element.gender}</TableCell>
+                                        <TableCell>{element.score}</TableCell>
+                                        <TableCell>
+                                        <Tooltip title="" arrow>
+                                            <span></span>
+                                        </Tooltip>
+                                        </TableCell>
+                                        <TableCell></TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    )
+                })}
+        </div>
     );
 }
 
