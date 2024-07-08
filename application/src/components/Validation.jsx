@@ -167,43 +167,43 @@ const Validation = ()=> {
                 </Grid>
                 </Grid>
             </Box>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>No.</TableCell>
-                        <TableCell>First name</TableCell>
-                        <TableCell>Last name</TableCell>
-                        <TableCell>Gender</TableCell>
-                        <TableCell>Score</TableCell>
-                    </TableRow>
-                </TableHead>
-                {dataTable.map(element => {
-                    return (
-                        <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                <TableBody>
-                                    <TableRow sx={{ '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' } }}>
-                                        <TableCell>
-                                        <IconButton>
-                                            <EditIcon />
-                                        </IconButton>
-                                        </TableCell>
-                                        <TableCell>{element.id}</TableCell>
-                                        <TableCell>{element.firstname}</TableCell>
-                                        <TableCell>{element.lastname}</TableCell>
-                                        <TableCell>{element.gender}</TableCell>
-                                        <TableCell>{element.score}</TableCell>
-                                        <TableCell>
-                                        <Tooltip title="" arrow>
-                                            <span></span>
-                                        </Tooltip>
-                                        </TableCell>
-                                        <TableCell></TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    )
-                })}
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                            <TableRow>
+                                <TableCell>No.</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell>First name</TableCell>
+                                <TableCell>Last name</TableCell>
+                                <TableCell>Gender</TableCell>
+                                <TableCell>Score</TableCell>
+                            </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {dataTable.map(element => {
+                                return (
+                            <TableRow sx={{ '&:nth-of-type(odd)': { backgroundColor: '#f5f5f5' } }}>
+                                <TableCell>{element.id}</TableCell>
+                                <TableCell>
+                                <IconButton>
+                                    <EditIcon />
+                                </IconButton>
+                                </TableCell>
+                                <TableCell>{element.firstname}</TableCell>
+                                <TableCell>{element.lastname}</TableCell>
+                                <TableCell>{element.gender}</TableCell>
+                                <TableCell>{element.score}</TableCell>
+                                <TableCell>
+                                <Tooltip title="" arrow>
+                                    <span></span>
+                                </Tooltip>
+                                </TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
+                                )})}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
         </div>
     );
 }
